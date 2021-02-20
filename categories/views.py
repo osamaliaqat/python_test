@@ -22,6 +22,7 @@ class CategoriesViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
 
+
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
