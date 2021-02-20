@@ -27,12 +27,16 @@ class SubCategorySerializer(serializers.ModelSerializer):
                   'subcategories',
                   'id',]
 
-    def create(self, validated_data):
-        sub_cat = validated_data.pop('subcategories')
-        name = Category.objects.create(**validated_data)
-        for cat in sub_cat:
-            sub_category.objects.create(**cat, name=name)
-        return name
+    # def create(self, validated_data):
+    #     sub_cat = validated_data.pop('subcategories')
+    #     name = Category.objects.create(**validated_data)
+    #     cats = ''
+    #     for cat in sub_cat:
+    #         cats = cat.pop('name', None)
+    #         print(cats)
+    #
+    #         childern.objects.create(name=cats)
+    #     return None
 
 
 class RecursiveField(serializers.Serializer):
@@ -55,10 +59,17 @@ class CategorySerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         sub_cat = validated_data.pop('subcategories')
         name = Category.objects.create(**validated_data)
+        cats = ''
         for cat in sub_cat:
-            sub_category.objects.create(**cat, name=name)
-        return name
-    
+            cats = cat.pop('name', None)
+            print(cats)
+
+            # id = Category.objects.order_by('id').last()
+            # id=id.id
+            # print(id)
+
+            sub_category.objects.create(name=cats, parentCategory_id=id)
+        return None
 
 
 
